@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>JavaScript HW</title>
+    </head>
+    <body onload="init()">
+            <canvas id="myCanvas" width="800px" height="450px" style="border:1px solid black"></canvas>
+            <input type="text" onkeypress="change_color(e)">
+            <script>
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext("2d")
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let lastX = 0;
+            let lastY = 0;
+            var radius = 10;
+            ctx.fillStyle = '#FF0000';
+            
+            function draw(e) {
+                console.log(ctx.fillStyle);
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.arc(lastX,lastY,radius,0,Math.PI*2,true);
+                ctx.fill();
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            }
+
+            function change(e) {
+                var y = e.keyCode;
+                console.log(y)
+                // if up
+                if (y == 38) {
+                    radius += 2;
+                }
+                // if down
+                else if (y == 40){
+                    if (radius != 2) {
+                        radius -= 2;
+                    }
+                else {
+                    alert("Pen size is too small!")
+                    }      
+                }
+                else if (y == 66) {
+                    ctx.fillStyle = '#0000FF';
+                }
+                // if r
+                else if (y == 82) {
+                    ctx.fillStyle = '#FF0000';
+                }
+                // if y
+                else if (y == 89) {
+                    ctx.fillStyle = "#FFFF00";
+                }
+                // if g
+                else if (y == 71) {
+                    ctx.fillStyle = '#008000';
+                }
+                else if (y == 32) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            
+
+            
+            window.addEventListener('keydown', change);
+            canvas.addEventListener('mousemove', draw);
+            
+            </script>
+        </body>
+    </html> 
+            
+    
+        
